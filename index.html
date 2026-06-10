@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shikha Yadav — ML Portfolio</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Bebas Neue"', 'sans-serif'],
+            body: ['"IBM Plex Mono"', 'monospace'],
+          },
+          colors: {
+            accent: '#FF3B00',
+            nearblack: '#0A0A0A',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Custom CSS -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+    /* STAGE 1: Force Zero Rounded Corners globally */
+    * {
+      border-radius: 0 !important;
+    }
+
+    /* STAGE 2: CSS-Only Custom Square Cursor */
+    /* Center-aligned 8x8px black square cursor for default state */
+    * {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='8' height='8'%3E%3Crect width='8' height='8' fill='%230A0A0A'/%3E%3C/svg%3E") 4 4, auto;
+    }
+    
+    /* Center-aligned 14x14px bold red square cursor for hoverable states */
+    a, button, [role="button"], 
+    .project-card, .project-card *, 
+    .cert-card, .cert-card *,
+    .fact-card, .fact-card *,
+    .nav-link, select, input, textarea {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' width='14' height='14'%3E%3Crect width='14' height='14' fill='%23FF3B00'/%3E%3C/svg%3E") 7 7, pointer;
+    }
+
+    /* STAGE 3: Core Style Resets & Structure */
+    body {
+      background-color: #FFFFFF;
+      color: #0A0A0A;
+      font-family: 'IBM Plex Mono', monospace;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Editorial Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FFFFFF;
+      border-left: 2px solid #0A0A0A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0A0A0A;
+    }
+
+    /* STAGE 4: Instant Hover Inversion (No transitions) */
+    .project-card, .cert-card {
+      transition: none !important;
+    }
+    .project-card:hover, .cert-card:hover {
+      background-color: #0A0A0A !important;
+      color: #FFFFFF !important;
+      border-color: #FFFFFF !important;
+    }
+    .project-card:hover .project-index, .cert-card:hover .project-index,
+    .project-card:hover .project-title, .cert-card:hover .project-title,
+    .project-card:hover .project-desc, .cert-card:hover .project-desc,
+    .project-card:hover .value-text, .cert-card:hover .value-text {
+      color: #FFFFFF !important;
+    }
+    .project-card:hover .project-desc, .cert-card:hover .project-desc,
+    .project-card:hover .label-text, .cert-card:hover .label-text {
+      color: #CCCCCC !important;
+    }
+    .project-card:hover .stack-tag, .cert-card:hover .stack-tag {
+      border-color: #FFFFFF !important;
+      color: #FFFFFF !important;
+      background-color: transparent !important;
+    }
+    .project-card:hover .project-link, .cert-card:hover .project-link {
+      border-color: #FFFFFF !important;
+      color: #FFFFFF !important;
+    }
+    .project-card:hover .stats-col, .cert-card:hover .stats-col {
+      border-color: #FFFFFF !important;
+    }
+    .project-card:hover .stat-divider, .cert-card:hover .stat-divider {
+      border-color: #FFFFFF !important;
+    }
+  </style>
+</head>
+<body class="selection:bg-[#0A0A0A] selection:text-white">
+
+  <!-- ========================================== -->
+  <!-- [NAV] Navigation Bar                       -->
+  <!-- ========================================== -->
+  <!-- EDIT: Navigation Logo & Links -->
+  <nav class="fixed top-0 left-0 right-0 bg-white border-b-2 border-[#0A0A0A] z-50 h-16 flex items-center justify-between px-6 md:px-12 select-none">
+    <!-- Logo -->
+    <a href="#hero" class="font-display text-[24px] tracking-wider text-[#0A0A0A] flex items-center gap-1 select-none">
+      SY<span class="text-[#FF3B00] font-sans text-xl leading-none">●</span> <!-- Accent 1: Nav Dot -->
+    </a>
+    
+    <!-- Navigation Links -->
+    <div class="flex items-center gap-6 md:gap-8 font-body text-[12px] font-bold tracking-widest text-[#0A0A0A]">
+      <a href="#work" class="nav-link relative py-1 hover:text-[#0A0A0A] border-b-2 border-transparent pb-[2px]">WORK</a>
+      <a href="#about" class="nav-link relative py-1 hover:text-[#0A0A0A] border-b-2 border-transparent pb-[2px]">ABOUT</a>
+      <a href="#skills" class="nav-link relative py-1 hover:text-[#0A0A0A] border-b-2 border-transparent pb-[2px] hidden md:inline">SKILLS</a>
+      <a href="#certs" class="nav-link relative py-1 hover:text-[#0A0A0A] border-b-2 border-transparent pb-[2px] hidden md:inline">CERTS</a>
+      <a href="#contact" class="nav-link relative py-1 hover:text-[#0A0A0A] border-b-2 border-transparent pb-[2px]">CONTACT</a>
+    </div>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- [HERO — Section 01]                       -->
+  <!-- ========================================== -->
+  <section id="hero" class="min-h-screen pt-24 pb-12 flex flex-col justify-between max-w-6xl mx-auto px-6 md:px-12 relative">
+    
+    <!-- Watermark behind content -->
+    <div class="absolute top-28 left-6 md:left-12 font-display text-[150px] text-[#0A0A0A] opacity-5 select-none leading-none pointer-events-none">01</div>
+
+    <div class="grid grid-cols-1 md:grid-cols-10 gap-8 items-center my-auto py-12 relative z-10">
+      <!-- Left Column (60%) -->
+      <div class="md:col-span-6 flex flex-col justify-center">
+        <!-- Tiny label top -->
+        <!-- EDIT: Hero Top Label -->
+        <div class="flex items-center gap-2 mb-6 select-none">
+          <span class="w-2.5 h-2.5 bg-[#FF3B00] inline-block"></span> <!-- Accent 2: Hero Dot -->
+          <span class="font-body text-[11px] font-bold tracking-widest text-[#0A0A0A]">ML ENGINEER · MUMBAI · RCOE '27</span>
+        </div>
+        
+        <!-- Name -->
+        <!-- EDIT: Name -->
+        <h1 class="font-display text-[#0A0A0A] leading-[0.85] uppercase mb-6" style="font-size: clamp(64px, 10vw, 120px);">
+          SHIKHA<br>YADAV
+        </h1>
+        
+        <!-- Tagline below name -->
+        <!-- EDIT: Tagline -->
+        <p class="font-body text-lg text-[#0A0A0A] mb-8 max-w-md">
+          I build ML systems that ship.
+        </p>
+        
+        <!-- Two CTA buttons side by side -->
+        <!-- EDIT: CTA Links -->
+        <div class="flex flex-wrap gap-4">
+          <a href="#work" class="font-body font-bold text-xs uppercase px-8 py-4 border-2 border-[#0A0A0A] bg-[#0A0A0A] text-white hover:bg-white hover:text-[#0A0A0A] select-none text-center min-w-[160px] transition-none">
+            VIEW WORK ↓
+          </a>
+          <a href="https://github.com/Shikha-eng" target="_blank" class="font-body font-bold text-xs uppercase px-8 py-4 border-2 border-[#0A0A0A] bg-white text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white select-none text-center min-w-[160px] transition-none">
+            GITHUB ↗
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right Column (40%) -->
+      <!-- EDIT: Monospace Text Art -->
+      <div class="md:col-span-4 hidden md:flex justify-center items-center select-none">
+        <pre class="font-body text-[11px] text-[#0A0A0A] leading-5 border-2 border-[#0A0A0A] p-8 bg-white font-bold max-w-sm w-full">
+[INPUT]     [HIDDEN]    [OUTPUT]
+  x₁ ───(0.8)───► [H₁] ──(0.9)──┐
+  x₂ ───(0.1)───► [H₂] ──(0.2)──┼─► [y]
+  x₃ ───(0.5)───► [H₃] ──(0.4)──┘
+
+  ·  ·  ·  ◼  ·  ·  ◼  ·  ·  ·
+  ·  ◼  ·  ·  ·  ·  ·  ·  ◼  ·
+  ·  ·  ·  ·  ◼  ◼  ·  ·  ·  ·
+  ◼  ·  ·  ◼  ·  ·  ◼  ·  ·  ◼
+  ·  ·  ◼  ·  ·  ·  ·  ◼  ·  ·
+  ·  ·  ·  ·  ◼  ◼  ·  ·  ·  ·
+
+  [EPOCHS: 150/150] [LOSS: 0.012]
+  [ACCURACY: 99.8%] [DRIFT: NONE]
+        </pre>
+      </div>
+    </div>
+
+    <!-- Divison border -->
+    <div class="w-full">
+      <hr class="border-t-2 border-[#0A0A0A]">
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- [PROJECTS — Section 02]                   -->
+  <!-- ========================================== -->
+  <section id="work" class="max-w-6xl mx-auto px-6 md:px-12 py-24 border-b-2 border-[#0A0A0A] relative">
+    
+    <!-- Section Heading Block -->
+    <div class="relative mb-16 select-none">
+      <!-- Watermark behind -->
+      <div class="absolute -top-10 -left-6 font-display text-[96px] text-[#0A0A0A] opacity-10 leading-none">02</div>
+      <!-- Heading -->
+      <div class="relative z-10">
+        <div class="font-display text-[80px] leading-none text-[#0A0A0A]">02</div>
+        <h2 class="font-body font-bold text-[18px] uppercase tracking-wider text-[#0A0A0A] mt-1">WORK</h2>
+      </div>
+    </div>
+
+    <!-- Project cards container -->
+    <div class="flex flex-col gap-8">
+      
+      <!-- PROJECT 1 CARD -->
+      <!-- EDIT: Project 1 Card details -->
+      <div class="project-card border-2 border-[#0A0A0A] bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between items-stretch">
+        
+        <!-- Left Side: Index -->
+        <div class="flex items-start justify-between md:w-[10%] select-none">
+          <span class="project-index font-display text-[64px] leading-none text-[#0A0A0A]">№01</span>
+        </div>
+        
+        <!-- Center Side: Project Info -->
+        <div class="flex-1 flex flex-col justify-between gap-6 md:w-[55%]">
+          <div>
+            <!-- EDIT: Project 1 Title -->
+            <h3 class="project-title font-display text-[32px] leading-none text-[#0A0A0A] mb-2 uppercase">ICU Sepsis Prediction System</h3>
+            <!-- EDIT: Project 1 Description -->
+            <p class="project-desc font-body text-[13px] text-[#555] mb-4">End-to-end clinical ML system predicting sepsis onset from ICU vitals</p>
+            
+            <!-- Stack Tags -->
+            <!-- EDIT: Project 1 Stack -->
+            <div class="flex flex-wrap gap-2 mb-2 select-none">
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Python</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">XGBoost</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">FastAPI</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Docker</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">SHAP</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">PhysioNet 2019</span>
+            </div>
+          </div>
+          
+          <!-- Inline Links -->
+          <!-- EDIT: Project 1 Links -->
+          <div class="flex gap-6 font-body text-xs font-bold tracking-wider">
+            <a href="https://github.com/Shikha-eng" target="_blank" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">GITHUB ↗</a>
+            <a href="project-detail.html#icu-sepsis-prediction" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">READ MORE →</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Stats Column -->
+        <!-- EDIT: Project 1 Stats -->
+        <div class="stats-col flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#0A0A0A] pt-6 md:pt-0 md:pl-10 md:w-[30%] min-w-[200px]">
+          <!-- Stat 1 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">DATASET</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">40,000+ files</span>
+          </div>
+          <!-- Stat 2 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">FEATURES</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">30+ engineered</span>
+          </div>
+          <!-- Stat 3 -->
+          <div class="flex flex-col last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">RECALL</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Threshold-tuned</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 2 CARD -->
+      <!-- EDIT: Project 2 Card details -->
+      <div class="project-card border-2 border-[#0A0A0A] bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between items-stretch">
+        
+        <!-- Left Side: Index -->
+        <div class="flex items-start justify-between md:w-[10%] select-none">
+          <span class="project-index font-display text-[64px] leading-none text-[#0A0A0A]">№02</span>
+        </div>
+        
+        <!-- Center Side: Project Info -->
+        <div class="flex-1 flex flex-col justify-between gap-6 md:w-[55%]">
+          <div>
+            <!-- EDIT: Project 2 Title -->
+            <h3 class="project-title font-display text-[32px] leading-none text-[#0A0A0A] mb-2 uppercase">Credit Card Fraud Detection</h3>
+            <!-- EDIT: Project 2 Description -->
+            <p class="project-desc font-body text-[13px] text-[#555] mb-4">Production-ready fraud detection with drift monitoring and explainability</p>
+            
+            <!-- Stack Tags -->
+            <!-- EDIT: Project 2 Stack -->
+            <div class="flex flex-wrap gap-2 mb-2 select-none">
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Python</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Scikit-learn</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">SMOTE</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">FastAPI</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Docker</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Evidently AI</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">SHAP</span>
+            </div>
+          </div>
+          
+          <!-- Inline Links -->
+          <!-- EDIT: Project 2 Links -->
+          <div class="flex gap-6 font-body text-xs font-bold tracking-wider">
+            <a href="https://github.com/Shikha-eng" target="_blank" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">GITHUB ↗</a>
+            <a href="project-detail.html#credit-card-fraud" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">READ MORE →</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Stats Column -->
+        <!-- EDIT: Project 2 Stats -->
+        <div class="stats-col flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#0A0A0A] pt-6 md:pt-0 md:pl-10 md:w-[30%] min-w-[200px]">
+          <!-- Stat 1 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">CLASS IMBALANCE</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">99.8% handled</span>
+          </div>
+          <!-- Stat 2 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">MODELS COMPARED</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">4</span>
+          </div>
+          <!-- Stat 3 -->
+          <div class="flex flex-col last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">MONITORING</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Drift detection</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- EDIT: See More Projects Button -->
+      <div class="mt-12 flex justify-center">
+        <a href="projects.html" class="font-body font-bold text-xs uppercase px-8 py-4 border-2 border-[#0A0A0A] bg-white text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white select-none text-center min-w-[200px] transition-none">
+          SEE MORE WORK →
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- [ABOUT — Section 03]                     -->
+  <!-- ========================================== -->
+  <section id="about" class="max-w-6xl mx-auto px-6 md:px-12 py-24 border-b-2 border-[#0A0A0A] relative">
+    <div class="grid grid-cols-1 md:grid-cols-10 gap-12">
+      <!-- Left Column (35%) -->
+      <div class="md:col-span-3 select-none">
+        <div class="relative">
+          <!-- Watermark behind -->
+          <div class="absolute -top-10 -left-6 font-display text-[96px] text-[#0A0A0A] opacity-10 leading-none">03</div>
+          <!-- Heading -->
+          <div class="relative z-10">
+            <div class="font-display text-[80px] leading-none text-[#0A0A0A]">03</div>
+            <h2 class="font-body font-bold text-[18px] uppercase tracking-wider text-[#0A0A0A] mt-1">ABOUT</h2>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Right Column (65%) -->
+      <!-- EDIT: About Paragraphs & Fact Cards -->
+      <div class="md:col-span-7 font-body text-sm leading-[1.8] text-[#0A0A0A]">
+        <!-- Paragraph 1 -->
+        <p class="mb-6">
+          I'm a final-year Electronics & CS student at Rizvi College of Engineering, Mumbai — specialising in AI/ML. I build end-to-end systems: raw data to deployed API.
+        </p>
+        <!-- Paragraph 2 -->
+        <p class="mb-6">
+          My focus is healthcare ML and MLOps — explainable models, production pipelines, drift monitoring. I care about systems that work in the real world, not just on Kaggle.
+        </p>
+        <!-- Paragraph 3 -->
+        <p class="mb-12">
+          Currently building: <span class="border-b-2 border-[#0A0A0A] pb-0.5 font-bold">[SepsisWatch clinical dashboard]</span>. Open to ML internships 2025.
+        </p>
+        
+        <!-- Fact Cards Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          <!-- Fact 1 -->
+          <div class="fact-card border-2 border-[#0A0A0A] bg-white p-6 flex flex-col justify-between min-h-[120px] transition-none group hover:bg-[#0A0A0A] hover:text-white hover:border-[#FFFFFF]">
+            <span class="text-[10px] font-bold text-[#555] group-hover:text-[#CCCCCC] tracking-widest uppercase mb-4 transition-none">INSTITUTION</span>
+            <span class="text-[12px] font-bold text-[#0A0A0A] group-hover:text-white leading-tight transition-none">Rizvi College of Engineering</span>
+          </div>
+          <!-- Fact 2 -->
+          <div class="fact-card border-2 border-[#0A0A0A] bg-white p-6 flex flex-col justify-between min-h-[120px] transition-none group hover:bg-[#0A0A0A] hover:text-white hover:border-[#FFFFFF]">
+            <span class="text-[10px] font-bold text-[#555] group-hover:text-[#CCCCCC] tracking-widest uppercase mb-4 transition-none">LOCATION</span>
+            <span class="text-[12px] font-bold text-[#0A0A0A] group-hover:text-white leading-tight transition-none">Mumbai, India</span>
+          </div>
+          <!-- Fact 3 -->
+          <div class="fact-card border-2 border-[#0A0A0A] bg-white p-6 flex flex-col justify-between min-h-[120px] transition-none group hover:bg-[#0A0A0A] hover:text-white hover:border-[#FFFFFF]">
+            <span class="text-[10px] font-bold text-[#555] group-hover:text-[#CCCCCC] tracking-widest uppercase mb-4 transition-none">STATUS</span>
+            <span class="text-[12px] font-bold text-[#0A0A0A] group-hover:text-white leading-tight transition-none">Open to Internships</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- [SKILLS — Section 04]                    -->
+  <!-- ========================================== -->
+  <section id="skills" class="max-w-6xl mx-auto px-6 md:px-12 py-24 border-b-2 border-[#0A0A0A] relative">
+    
+    <!-- Section Heading Block -->
+    <div class="relative mb-16 select-none">
+      <!-- Watermark behind -->
+      <div class="absolute -top-10 -left-6 font-display text-[96px] text-[#0A0A0A] opacity-10 leading-none">04</div>
+      <!-- Heading -->
+      <div class="relative z-10">
+        <div class="font-display text-[80px] leading-none text-[#0A0A0A]">04</div>
+        <h2 class="font-body font-bold text-[18px] uppercase tracking-wider text-[#0A0A0A] mt-1">SKILLS</h2>
+      </div>
+    </div>
+
+    <!-- Skill Inventory Grid -->
+    <!-- EDIT: Skills Grid details -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8 mb-16">
+      
+      <!-- Column 1 -->
+      <div class="flex flex-col gap-6">
+        <!-- LANGUAGES -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-b border-[#E0E0E0]">
+          <span class="font-body text-[12px] font-bold text-[#0A0A0A] tracking-wider min-w-[150px] uppercase select-none">LANGUAGES</span>
+          <div class="flex flex-wrap gap-2 sm:justify-end select-none">
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">Python</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">SQL</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">C++</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">Bash</span>
+          </div>
+        </div>
+        
+        <!-- ML LIBS -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-b border-[#E0E0E0]">
+          <span class="font-body text-[12px] font-bold text-[#0A0A0A] tracking-wider min-w-[150px] uppercase select-none">ML LIBS</span>
+          <div class="flex flex-wrap gap-2 sm:justify-end select-none">
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">XGBoost</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">Scikit-learn</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">PyTorch</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">SMOTE</span>
+          </div>
+        </div>
+
+        <!-- DEPLOYMENT -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-b border-[#E0E0E0] md:border-b-0">
+          <span class="font-body text-[12px] font-bold text-[#0A0A0A] tracking-wider min-w-[150px] uppercase select-none">DEPLOYMENT</span>
+          <div class="flex flex-wrap gap-2 sm:justify-end select-none">
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">FastAPI</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">Docker</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">Docker Compose</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">Git</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Column 2 -->
+      <div class="flex flex-col gap-6">
+        <!-- EXPLAINABILITY -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-b border-[#E0E0E0]">
+          <span class="font-body text-[12px] font-bold text-[#0A0A0A] tracking-wider min-w-[150px] uppercase select-none">EXPLAINABILITY</span>
+          <div class="flex flex-wrap gap-2 sm:justify-end select-none">
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">SHAP</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">LIME</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">Evidently AI</span>
+          </div>
+        </div>
+        
+        <!-- CLINICAL ML -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-b border-[#E0E0E0]">
+          <span class="font-body text-[12px] font-bold text-[#0A0A0A] tracking-wider min-w-[150px] uppercase select-none">CLINICAL ML</span>
+          <div class="flex flex-wrap gap-2 sm:justify-end select-none">
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">PhysioNet</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">EHR Pipelines</span>
+            <span class="border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[12px] text-[#0A0A0A] bg-white hover:bg-[#0A0A0A] hover:text-white transition-none">HIPAA</span>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    
+    <!-- One full-width row at bottom -->
+    <!-- EDIT: Skills Bottom Banner / Learning -->
+    <div class="border-2 border-[#0A0A0A] bg-white p-6 flex flex-wrap items-center gap-2 select-none">
+      <span class="w-2.5 h-2.5 bg-[#FF3B00] inline-block mr-1"></span> <!-- Accent 3: Skills Dot -->
+      <span class="font-display text-[20px] tracking-wide text-[#0A0A0A]">
+        CURRENTLY LEARNING — DRIFT DETECTION · MODEL MONITORING · RETRAINING PIPELINES · MLOPS INFRASTRUCTURE
+      </span>
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- [CERTIFICATES — Section 05]               -->
+  <!-- ========================================== -->
+  <section id="certs" class="max-w-6xl mx-auto px-6 md:px-12 py-24 border-b-2 border-[#0A0A0A] relative">
+    
+    <!-- Section Heading Block -->
+    <div class="relative mb-16 select-none">
+      <!-- Watermark behind -->
+      <div class="absolute -top-10 -left-6 font-display text-[96px] text-[#0A0A0A] opacity-10 leading-none">05</div>
+      <!-- Heading -->
+      <div class="relative z-10">
+        <div class="font-display text-[80px] leading-none text-[#0A0A0A]">05</div>
+        <h2 class="font-body font-bold text-[18px] uppercase tracking-wider text-[#0A0A0A] mt-1">CERTIFICATES</h2>
+      </div>
+    </div>
+
+    <!-- Certificate Cards container -->
+    <div class="flex flex-col gap-8">
+      
+      <!-- CERTIFICATE 1 CARD -->
+      <!-- EDIT: Certificate 1 Card details -->
+      <div class="cert-card border-2 border-[#0A0A0A] bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between items-stretch">
+        <!-- Left Side: Index -->
+        <div class="flex items-start justify-between md:w-[10%] select-none">
+          <span class="project-index font-display text-[64px] leading-none text-[#0A0A0A]">№01</span>
+        </div>
+        
+        <!-- Center Side: Certificate Info -->
+        <div class="flex-1 flex flex-col justify-between gap-6 md:w-[55%]">
+          <div>
+            <!-- EDIT: Certificate 1 Title -->
+            <h3 class="project-title font-display text-[32px] leading-none text-[#0A0A0A] mb-2 uppercase">Machine Learning Specialization</h3>
+            <!-- EDIT: Certificate 1 Description -->
+            <p class="project-desc font-body text-[13px] text-[#555] mb-4">Supervised Machine Learning (Regression and Classification), Advanced Learning Algorithms, and Unsupervised Learning, Recommenders, Reinforcement Learning.</p>
+            <p class="font-body text-[11px] font-bold text-[#0A0A0A] uppercase select-none">ISSUED BY: DeepLearning.AI & Stanford University</p>
+          </div>
+          
+          <!-- Inline Links -->
+          <!-- EDIT: Certificate 1 Links -->
+          <div class="flex gap-6 font-body text-xs font-bold tracking-wider">
+            <a href="#" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">CREDENTIAL ↗</a>
+            <a href="#" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">CURRICULUM →</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Stats Column -->
+        <!-- EDIT: Certificate 1 Details -->
+        <div class="stats-col flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#0A0A0A] pt-6 md:pt-0 md:pl-10 md:w-[30%] min-w-[200px]">
+          <!-- Stat 1 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">ISSUED</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">June 2024</span>
+          </div>
+          <!-- Stat 2 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">PROVIDER</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Coursera</span>
+          </div>
+          <!-- Stat 3 -->
+          <div class="flex flex-col last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">STATUS</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Verified Credential</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CERTIFICATE 2 CARD -->
+      <!-- EDIT: Certificate 2 Card details -->
+      <div class="cert-card border-2 border-[#0A0A0A] bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between items-stretch">
+        <!-- Left Side: Index -->
+        <div class="flex items-start justify-between md:w-[10%] select-none">
+          <span class="project-index font-display text-[64px] leading-none text-[#0A0A0A]">№02</span>
+        </div>
+        
+        <!-- Center Side: Certificate Info -->
+        <div class="flex-1 flex flex-col justify-between gap-6 md:w-[55%]">
+          <div>
+            <!-- EDIT: Certificate 2 Title -->
+            <h3 class="project-title font-display text-[32px] leading-none text-[#0A0A0A] mb-2 uppercase">Deep Learning Specialization</h3>
+            <!-- EDIT: Certificate 2 Description -->
+            <p class="project-desc font-body text-[13px] text-[#555] mb-4">Neural Networks and Deep Learning, Improving Deep Neural Networks, Structuring Machine Learning Projects, Convolutional Neural Networks, Sequence Models.</p>
+            <p class="font-body text-[11px] font-bold text-[#0A0A0A] uppercase select-none">ISSUED BY: DeepLearning.AI</p>
+          </div>
+          
+          <!-- Inline Links -->
+          <!-- EDIT: Certificate 2 Links -->
+          <div class="flex gap-6 font-body text-xs font-bold tracking-wider">
+            <a href="#" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">CREDENTIAL ↗</a>
+            <a href="#" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">CURRICULUM →</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Stats Column -->
+        <!-- EDIT: Certificate 2 Details -->
+        <div class="stats-col flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#0A0A0A] pt-6 md:pt-0 md:pl-10 md:w-[30%] min-w-[200px]">
+          <!-- Stat 1 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">ISSUED</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">August 2024</span>
+          </div>
+          <!-- Stat 2 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">PROVIDER</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Coursera</span>
+          </div>
+          <!-- Stat 3 -->
+          <div class="flex flex-col last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">STATUS</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Verified Credential</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- [CONTACT — Section 06]                    -->
+  <!-- ========================================== -->
+  <section id="contact" class="max-w-6xl mx-auto px-6 md:px-12 pt-24 pb-12 relative flex flex-col justify-between min-h-[60vh]">
+    
+    <!-- Watermark behind heading -->
+    <div class="relative mb-12 select-none text-center">
+      <!-- Watermark behind -->
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 font-display text-[120px] text-[#0A0A0A] opacity-5 leading-none pointer-events-none">06</div>
+      <!-- Heading -->
+      <div class="relative z-10">
+        <div class="font-display text-4xl text-[#0A0A0A] opacity-30 leading-none mb-1">06</div>
+        <h2 class="font-display text-[#0A0A0A] leading-none uppercase" style="font-size: clamp(40px, 6vw, 80px);">LET'S WORK TOGETHER</h2>
+      </div>
+    </div>
+    
+    <!-- Email & CTAs -->
+    <div class="flex flex-col items-center justify-center gap-8 mb-24 text-center">
+      <!-- Email Link -->
+      <!-- EDIT: Email -->
+      <a href="mailto:shikhasyadav4@gmail.com" class="email-link font-body text-lg text-[#0A0A0A] border-b-2 border-transparent hover:border-[#FF3B00] pb-1 select-none transition-none">
+        shikhasyadav4@gmail.com
+      </a>
+      
+      <!-- CTA buttons -->
+      <!-- EDIT: Social Links -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="https://www.linkedin.com/in/shikha-y-2618602b5/" target="_blank" class="font-body font-bold text-xs uppercase px-8 py-4 border-2 border-[#0A0A0A] bg-white text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white select-none text-center min-w-[140px] transition-none">
+          LINKEDIN ↗
+        </a>
+        <a href="https://github.com/Shikha-eng" target="_blank" class="font-body font-bold text-xs uppercase px-8 py-4 border-2 border-[#0A0A0A] bg-white text-[#0A0A0A] hover:bg-[#0A0A0A] hover:text-white select-none text-center min-w-[140px] transition-none">
+          GITHUB ↗
+        </a>
+      </div>
+    </div>
+    
+    <!-- Footer -->
+    <!-- EDIT: Footer Copyright -->
+    <footer class="border-t-2 border-[#0A0A0A] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 font-body text-[11px] text-[#555] uppercase select-none">
+      <div>© 2025 Shikha Yadav</div>
+      <div>Built with intention, not a template.</div>
+    </footer>
+  </section>
+
+  <!-- ========================================== -->
+  <!-- Vanilla JS Operations                     -->
+  <!-- ========================================== -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 1. Smooth Scroll to Section Anchors
+      const anchors = document.querySelectorAll('a[href^="#"]');
+      anchors.forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          if (targetId === '#') return;
+          const targetElement = document.querySelector(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 64, // Subtract header height (16px * 4 = 64px)
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+
+      // 2. Active Section Highlight using IntersectionObserver
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('.nav-link');
+
+      const observerOptions = {
+        root: null,
+        rootMargin: '-30% 0px -70% 0px', // Trigger when section occupies core viewport
+        threshold: 0
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const activeId = entry.target.getAttribute('id');
+            navLinks.forEach(link => {
+              const href = link.getAttribute('href');
+              if (href === `#${activeId}`) {
+                link.classList.add('border-[#0A0A0A]');
+                link.classList.remove('border-transparent');
+              } else {
+                link.classList.remove('border-[#0A0A0A]');
+                link.classList.add('border-transparent');
+              }
+            });
+          }
+        });
+      }, observerOptions);
+
+      sections.forEach(section => observer.observe(section));
+
+    });
+  </script>
+</body>
+</html>

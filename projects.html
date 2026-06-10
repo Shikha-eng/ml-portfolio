@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shikha Yadav — More Projects</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Bebas Neue"', 'sans-serif'],
+            body: ['"IBM Plex Mono"', 'monospace'],
+          },
+          colors: {
+            accent: '#FF3B00',
+            nearblack: '#0A0A0A',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Custom CSS -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+    /* STAGE 1: Force Zero Rounded Corners globally */
+    * {
+      border-radius: 0 !important;
+    }
+
+    /* STAGE 2: CSS-Only Custom Square Cursor */
+    /* Center-aligned 8x8px black square cursor for default state */
+    * {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='8' height='8'%3E%3Crect width='8' height='8' fill='%230A0A0A'/%3E%3C/svg%3E") 4 4, auto;
+    }
+    
+    /* Center-aligned 14x14px bold red square cursor for hoverable states */
+    a, button, [role="button"], 
+    .project-card, .project-card *, 
+    .nav-link, select, input, textarea {
+      cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' width='14' height='14'%3E%3Crect width='14' height='14' fill='%23FF3B00'/%3E%3C/svg%3E") 7 7, pointer;
+    }
+
+    /* STAGE 3: Core Style Resets & Structure */
+    body {
+      background-color: #FFFFFF;
+      color: #0A0A0A;
+      font-family: 'IBM Plex Mono', monospace;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    /* Editorial Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FFFFFF;
+      border-left: 2px solid #0A0A0A;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #0A0A0A;
+    }
+
+    /* STAGE 4: Instant Hover Inversion (No transitions) */
+    .project-card {
+      transition: none !important;
+    }
+    .project-card:hover {
+      background-color: #0A0A0A !important;
+      color: #FFFFFF !important;
+      border-color: #FFFFFF !important;
+    }
+    .project-card:hover .project-index,
+    .project-card:hover .project-title,
+    .project-card:hover .project-desc,
+    .project-card:hover .value-text {
+      color: #FFFFFF !important;
+    }
+    .project-card:hover .project-desc,
+    .project-card:hover .label-text {
+      color: #CCCCCC !important;
+    }
+    .project-card:hover .stack-tag {
+      border-color: #FFFFFF !important;
+      color: #FFFFFF !important;
+      background-color: transparent !important;
+    }
+    .project-card:hover .project-link {
+      border-color: #FFFFFF !important;
+      color: #FFFFFF !important;
+    }
+    .project-card:hover .stats-col {
+      border-color: #FFFFFF !important;
+    }
+    .project-card:hover .stat-divider {
+      border-color: #FFFFFF !important;
+    }
+  </style>
+</head>
+<body class="selection:bg-[#0A0A0A] selection:text-white">
+
+  <!-- ========================================== -->
+  <!-- [NAV] Navigation Bar                       -->
+  <!-- ========================================== -->
+  <nav class="fixed top-0 left-0 right-0 bg-white border-b-2 border-[#0A0A0A] z-50 h-16 flex items-center justify-between px-6 md:px-12 select-none">
+    <!-- Logo -->
+    <a href="index.html" class="font-display text-[24px] tracking-wider text-[#0A0A0A] flex items-center gap-1 select-none">
+      SY<span class="text-[#FF3B00] font-sans text-xl leading-none">●</span>
+    </a>
+    
+    <!-- Navigation Links -->
+    <div class="flex items-center gap-6 md:gap-8 font-body text-[12px] font-bold tracking-widest text-[#0A0A0A]">
+      <a href="index.html" class="nav-link relative py-1 hover:text-[#0A0A0A] border-b-2 border-transparent pb-[2px]">HOME</a>
+      <a href="index.html#work" class="nav-link relative py-1 hover:text-[#0A0A0A] border-b-2 border-[#0A0A0A] pb-[2px]">WORK</a>
+      <a href="index.html#contact" class="nav-link relative py-1 hover:text-[#0A0A0A] border-b-2 border-transparent pb-[2px]">CONTACT</a>
+    </div>
+  </nav>
+
+  <!-- ========================================== -->
+  <!-- [PROJECTS LIST]                           -->
+  <!-- ========================================== -->
+  <section class="max-w-6xl mx-auto px-6 md:px-12 py-32 relative">
+    
+    <!-- Section Heading Block -->
+    <div class="relative mb-16 select-none">
+      <!-- Watermark behind -->
+      <div class="absolute -top-10 -left-6 font-display text-[96px] text-[#0A0A0A] opacity-10 leading-none">02</div>
+      <!-- Heading -->
+      <div class="relative z-10">
+        <div class="font-display text-[80px] leading-none text-[#0A0A0A]">02</div>
+        <h1 class="font-body font-bold text-[18px] uppercase tracking-wider text-[#0A0A0A] mt-1">ADDITIONAL PROJECTS</h1>
+      </div>
+    </div>
+
+    <!-- Project cards container -->
+    <div class="flex flex-col gap-8 mb-16">
+      
+      <!-- PROJECT 3 CARD (№03) -->
+      <!-- EDIT: Project 3 Card details -->
+      <div class="project-card border-2 border-[#0A0A0A] bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between items-stretch">
+        <!-- Left Side: Index -->
+        <div class="flex items-start justify-between md:w-[10%] select-none">
+          <span class="project-index font-display text-[64px] leading-none text-[#0A0A0A]">№03</span>
+        </div>
+        
+        <!-- Center Side: Project Info -->
+        <div class="flex-1 flex flex-col justify-between gap-6 md:w-[55%]">
+          <div>
+            <!-- EDIT: Project 3 Title -->
+            <h3 class="project-title font-display text-[32px] leading-none text-[#0A0A0A] mb-2 uppercase">Real-time Model Drift Monitoring System</h3>
+            <!-- EDIT: Project 3 Description -->
+            <p class="project-desc font-body text-[13px] text-[#555] mb-4">Drift monitoring dashboard tracking population stability index (PSI) and Kullback-Leibler divergence for tabular features.</p>
+            
+            <!-- Stack Tags -->
+            <!-- EDIT: Project 3 Stack -->
+            <div class="flex flex-wrap gap-2 mb-2 select-none">
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Python</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Evidently AI</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Prometheus</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Grafana</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">PostgreSQL</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Docker</span>
+            </div>
+          </div>
+          
+          <!-- Inline Links -->
+          <!-- EDIT: Project 3 Links -->
+          <div class="flex gap-6 font-body text-xs font-bold tracking-wider">
+            <a href="https://github.com/Shikha-eng" target="_blank" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">GITHUB ↗</a>
+            <a href="project-detail.html#model-drift-monitoring" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">READ MORE →</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Stats Column -->
+        <!-- EDIT: Project 3 Stats -->
+        <div class="stats-col flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#0A0A0A] pt-6 md:pt-0 md:pl-10 md:w-[30%] min-w-[200px]">
+          <!-- Stat 1 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">DRIFT METRICS</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">12 tracked</span>
+          </div>
+          <!-- Stat 2 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">LATENCY</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">&lt;50ms ingestion</span>
+          </div>
+          <!-- Stat 3 -->
+          <div class="flex flex-col last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">ALERTS</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Slack integrated</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 4 CARD (№04) -->
+      <!-- EDIT: Project 4 Card details -->
+      <div class="project-card border-2 border-[#0A0A0A] bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between items-stretch">
+        <!-- Left Side: Index -->
+        <div class="flex items-start justify-between md:w-[10%] select-none">
+          <span class="project-index font-display text-[64px] leading-none text-[#0A0A0A]">№04</span>
+        </div>
+        
+        <!-- Center Side: Project Info -->
+        <div class="flex-1 flex flex-col justify-between gap-6 md:w-[55%]">
+          <div>
+            <!-- EDIT: Project 4 Title -->
+            <h3 class="project-title font-display text-[32px] leading-none text-[#0A0A0A] mb-2 uppercase">EHR Named Entity Recognition Pipeline</h3>
+            <!-- EDIT: Project 4 Description -->
+            <p class="project-desc font-body text-[13px] text-[#555] mb-4">Clinical NLP pipeline extracting medical entities (drugs, dosages, conditions) from unstructured clinical text notes.</p>
+            
+            <!-- Stack Tags -->
+            <!-- EDIT: Project 4 Stack -->
+            <div class="flex flex-wrap gap-2 mb-2 select-none">
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Python</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">PyTorch</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Transformers</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">RoBERTa</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">FastAPI</span>
+            </div>
+          </div>
+          
+          <!-- Inline Links -->
+          <!-- EDIT: Project 4 Links -->
+          <div class="flex gap-6 font-body text-xs font-bold tracking-wider">
+            <a href="https://github.com/Shikha-eng" target="_blank" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">GITHUB ↗</a>
+            <a href="project-detail.html#ehr-ner-pipeline" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">READ MORE →</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Stats Column -->
+        <!-- EDIT: Project 4 Stats -->
+        <div class="stats-col flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#0A0A0A] pt-6 md:pt-0 md:pl-10 md:w-[30%] min-w-[200px]">
+          <!-- Stat 1 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">F1 SCORE</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">91.2% entity</span>
+          </div>
+          <!-- Stat 2 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">MODEL SIZE</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Distilled RoBERTa</span>
+          </div>
+          <!-- Stat 3 -->
+          <div class="flex flex-col last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">INFERENCE</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">GPU optimized</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 5 CARD (№05) -->
+      <!-- EDIT: Project 5 Card details -->
+      <div class="project-card border-2 border-[#0A0A0A] bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between items-stretch">
+        <!-- Left Side: Index -->
+        <div class="flex items-start justify-between md:w-[10%] select-none">
+          <span class="project-index font-display text-[64px] leading-none text-[#0A0A0A]">№05</span>
+        </div>
+        
+        <!-- Center Side: Project Info -->
+        <div class="flex-1 flex flex-col justify-between gap-6 md:w-[55%]">
+          <div>
+            <!-- EDIT: Project 5 Title -->
+            <h3 class="project-title font-display text-[32px] leading-none text-[#0A0A0A] mb-2 uppercase">Edge AI Object Detection</h3>
+            <!-- EDIT: Project 5 Description -->
+            <p class="project-desc font-body text-[13px] text-[#555] mb-4">Quantized YOLO model deployed on Raspberry Pi for real-time occupancy counting.</p>
+            
+            <!-- Stack Tags -->
+            <!-- EDIT: Project 5 Stack -->
+            <div class="flex flex-wrap gap-2 mb-2 select-none">
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">C++</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">PyTorch</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">ONNX Runtime</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">OpenCV</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Raspberry Pi</span>
+            </div>
+          </div>
+          
+          <!-- Inline Links -->
+          <!-- EDIT: Project 5 Links -->
+          <div class="flex gap-6 font-body text-xs font-bold tracking-wider">
+            <a href="https://github.com/Shikha-eng" target="_blank" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">GITHUB ↗</a>
+            <a href="project-detail.html#edge-object-detection" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">READ MORE →</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Stats Column -->
+        <!-- EDIT: Project 5 Stats -->
+        <div class="stats-col flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#0A0A0A] pt-6 md:pt-0 md:pl-10 md:w-[30%] min-w-[200px]">
+          <!-- Stat 1 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">LATENCY</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">15 FPS on CPU</span>
+          </div>
+          <!-- Stat 2 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">COMPRESSION</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">4x quantized</span>
+          </div>
+          <!-- Stat 3 -->
+          <div class="flex flex-col last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">ACCURACY</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">89% mAP@0.5</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- PROJECT 6 CARD (№06) -->
+      <!-- EDIT: Project 6 Card details -->
+      <div class="project-card border-2 border-[#0A0A0A] bg-white p-8 md:p-10 flex flex-col md:flex-row gap-8 justify-between items-stretch">
+        <!-- Left Side: Index -->
+        <div class="flex items-start justify-between md:w-[10%] select-none">
+          <span class="project-index font-display text-[64px] leading-none text-[#0A0A0A]">№06</span>
+        </div>
+        
+        <!-- Center Side: Project Info -->
+        <div class="flex-1 flex flex-col justify-between gap-6 md:w-[55%]">
+          <div>
+            <!-- EDIT: Project 6 Title -->
+            <h3 class="project-title font-display text-[32px] leading-none text-[#0A0A0A] mb-2 uppercase">Automated Clinical Data Pipeline</h3>
+            <!-- EDIT: Project 6 Description -->
+            <p class="project-desc font-body text-[13px] text-[#555] mb-4">Orchestrated pipeline for ETL and automated data quality validation on healthcare datasets.</p>
+            
+            <!-- Stack Tags -->
+            <!-- EDIT: Project 6 Stack -->
+            <div class="flex flex-wrap gap-2 mb-2 select-none">
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Python</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Apache Airflow</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">Great Expectations</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">PostgreSQL</span>
+              <span class="stack-tag border-[1.5px] border-[#0A0A0A] px-2 py-1 font-body text-[11px] font-medium text-[#0A0A0A]">MinIO</span>
+            </div>
+          </div>
+          
+          <!-- Inline Links -->
+          <!-- EDIT: Project 6 Links -->
+          <div class="flex gap-6 font-body text-xs font-bold tracking-wider">
+            <a href="https://github.com/Shikha-eng" target="_blank" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">GITHUB ↗</a>
+            <a href="project-detail.html#automated-data-pipeline" class="project-link border-b-2 border-[#0A0A0A] py-1 transition-none">READ MORE →</a>
+          </div>
+        </div>
+        
+        <!-- Right Side: Stats Column -->
+        <!-- EDIT: Project 6 Stats -->
+        <div class="stats-col flex flex-col justify-between border-t md:border-t-0 md:border-l border-[#0A0A0A] pt-6 md:pt-0 md:pl-10 md:w-[30%] min-w-[200px]">
+          <!-- Stat 1 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">QUALITY CHECKS</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">50+ automated</span>
+          </div>
+          <!-- Stat 2 -->
+          <div class="flex flex-col mb-4 pb-4 border-b border-[#E0E0E0] last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">PIPELINE RUNS</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Daily cron</span>
+          </div>
+          <!-- Stat 3 -->
+          <div class="flex flex-col last:border-b-0 last:pb-0 last:mb-0 stat-divider">
+            <span class="font-body text-[10px] font-bold text-[#555] tracking-widest uppercase label-text">ERROR HANDLING</span>
+            <span class="font-body text-[14px] font-bold text-[#0A0A0A] value-text">Auto-alert triggers</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Back to portfolio button -->
+    <!-- EDIT: Back Button -->
+    <div class="flex justify-center select-none">
+      <a href="index.html#work" class="font-body font-bold text-xs uppercase px-8 py-4 border-2 border-[#0A0A0A] bg-[#0A0A0A] text-white hover:bg-white hover:text-[#0A0A0A] text-center min-w-[220px] transition-none">
+        ← BACK TO PORTFOLIO
+      </a>
+    </div>
+
+  </section>
+
+  <!-- ========================================== -->
+  <!-- Footer                                     -->
+  <!-- ========================================== -->
+  <footer class="max-w-6xl mx-auto px-6 md:px-12 pb-12 select-none">
+    <div class="border-t-2 border-[#0A0A0A] pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 font-body text-[11px] text-[#555] uppercase">
+      <div>© 2025 Shikha Yadav</div>
+      <div>Built with intention, not a template.</div>
+    </div>
+  </footer>
+
+</body>
+</html>
