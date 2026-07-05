@@ -262,34 +262,54 @@
           { label: 'LATENCY', value: '<12ms inference per hour' }
         ],
         stack: ['Python', 'XGBoost', 'FastAPI', 'Docker', 'SHAP', 'PhysioNet 2019'],
-        github: 'https://github.com/Shikha-eng',
-        demo: 'https://www.linkedin.com/in/shikha-y-2618602b5/'
+        github: 'https://github.com/Shikha-eng/Sepsis-Prediction',
+        demo: 'https://sepsis-prediction-1-zqzh.onrender.com/'
       },
-      'credit-card-fraud': {
-        index: '№02',
-        number: '02',
-        category: 'PROJECT CASE STUDY // FRAUD DETECTION & MLOPS',
-        title: 'Credit Card Fraud Detection',
-        subtitle: 'Production-ready fraud detection with drift monitoring and explainability.',
-        overview1: 'Fraudulent card transactions cost card providers and users billions annually. In order to deploy fraud detection models in production, they must handle extreme skew (99.8% normal transactions) and must be constantly checked for model drift as fraudulent behaviors shift over time.',
-        overview2: 'This model utilizes a customized Random Forest architecture that balances classes using synthetic minority oversampling (SMOTE). It incorporates SHAP values to explain predictions in real-time, and integrates Evidently AI to continuously track population stability indices and detect data drift.',
-        pipeline: `[TX STREAMING] ──► [SMOTE BALANCING] ──► [SHAP EXPLANATION]
-                                                    │
-[SLACK ALERTS] ◄── [EVIDENTLY MONITORING] ◄── [RANDOM FOREST]`,
-        challenges: [
-          { title: 'False Positive Reduction', desc: 'Blocking legitimate transactions harms user experience. Tuned the threshold on Precision-Recall curves to keep false positives under 0.05%.' },
-          { title: 'Concept Drift in Fraud Tactics', desc: 'Fraud schemes mutate rapidly. Implemented drift monitoring via Evidently AI, evaluating covariate shift across feature subsets and triggering alerts when drift exceeds 0.2.' }
-        ],
-        stats: [
-          { label: 'CLASS IMBALANCE', value: '99.8% handled via SMOTE' },
-          { label: 'MODELS COMPARED', value: '4 architectures' },
-          { label: 'PR AUC SCORE', value: '0.94 area metric' },
-          { label: 'MONITORING', value: 'Evidently AI drift checks' }
-        ],
-        stack: ['Python', 'Scikit-learn', 'SMOTE', 'FastAPI', 'Docker', 'Evidently AI', 'SHAP'],
-        github: 'https://github.com/Shikha-eng',
-        demo: 'https://www.linkedin.com/in/shikha-y-2618602b5/'
-      },
+     'drug-drug-interaction': {
+  index: '№03',
+  number: '03',
+  category: 'PROJECT CASE STUDY // GRAPH ML & PHARMACOVIGILANCE',
+  title: 'Drug-Drug Interaction Prediction',
+  subtitle: 'Graph ML link prediction on a 1,641-drug knowledge graph with clinical deployment.',
+  overview1: 'Harmful drug-drug interactions cause thousands of hospitalizations annually and represent a critical unsolved problem in pharmacovigilance. Traditional detection relies on manual curation of clinical databases — slow, expensive, and incomplete. This project reframes DDI prediction as a graph machine learning problem: drugs as nodes, known interactions as edges, and the goal as link prediction on an unseen drug pair.',
+  overview2: 'Node2Vec embeddings learn 128-dimensional representations from graph topology alone — without any class labels — successfully rediscovering drug classes (NSAIDs, anticoagulants, antifungals) purely from interaction network structure. XGBoost then classifies drug pairs using four symmetric edge operators (Hadamard, L1, L2, Average) derived from these embeddings, achieving AUROC 0.9777 on 53,060 held-out test pairs. Deployed as a FastAPI service with a D3.js clinical dashboard and published to Docker Hub.',
+  pipeline: `[DDINTER CSVs] ──► [PUBCHEM SMILES] ──► [RDKIT FINGERPRINTS]
+                                                          │
+[FASTAPI + DOCKER] ◄── [XGBOOST CLASSIFIER] ◄── [NODE2VEC EMBEDDINGS]
+                                │
+                         [SHAP EXPLAINABILITY]`,
+  challenges: [
+    {
+      title: 'Deprecated PubChem API Fields',
+      desc: 'PubChem silently renamed CanonicalSMILES to ConnectivitySMILES — the code ran without errors but returned None for all 1,939 drugs. Diagnosed by inspecting raw response JSON and fixed with a multi-key fallback, recovering 1,657 valid small-molecule structures.'
+    },
+    {
+      title: 'Connectivity-Preserving Train/Test Split',
+      desc: 'Standard random edge splitting left isolated nodes with zero connections in the training graph — making their embeddings untrainable. Implemented a degree-aware split that guarantees every node retains at least one edge in G_train, preserving graph connectivity without data leakage.'
+    },
+    {
+      title: 'Biologics Exclusion',
+      desc: '282 drugs (monoclonal antibodies, vaccines, CAR-T therapies) had no SMILES representation — Morgan fingerprints require small-molecule structures. Correctly excluded with documented reasoning rather than silently dropped, and noted as a known system boundary in the README.'
+    },
+    {
+      title: 'Output Framing vs. Severity',
+      desc: 'Model predicts binary interaction probability (does an interaction exist?) — not severity. Minor interactions scored 0.96+ probability because the model correctly identified them as real interactions. Fixed by reframing risk labels from HIGH/MEDIUM/LOW to INTERACTION LIKELY / POSSIBLE / UNLIKELY, with an explicit model note in every API response.'
+    }
+  ],
+  stats: [
+    { label: 'GRAPH NODES', value: '1,641 drugs' },
+    { label: 'AUROC', value: '0.9777 on test set' },
+    { label: 'EMBEDDINGS', value: 'Node2Vec 128-dim' },
+    { label: 'DEPLOYMENT', value: 'Docker + FastAPI' }
+  ],
+  stack: [
+    'Python', 'Node2Vec', 'XGBoost', 'NetworkX',
+    'RDKit', 'SHAP', 'FastAPI', 'Docker', 'D3.js',
+    'DDInter', 'PubChem'
+  ],
+  github: 'https://github.com/Shikha-eng/Drug-Drug-Interaction-System',
+  demo: 'https://drug-drug-interaction-system.onrender.com/'
+},
       'model-drift-monitoring': {
         index: '№03',
         number: '03',
